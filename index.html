@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ClientS3</title>
+</head>
+<body ng-app="ClientSSS">
+
+    <div ng-controller="UserCtrl">
+        <span></span>
+        <form ng-submit="submit()">
+            <input ng-model="user.username" type="text" name="user" placeholder="Username" />
+            <input ng-model="user.password" type="password" name="pass" placeholder="Password" />
+            <input type="submit" value="Login" />
+        </form>
+        <input type="button" value="Login With Google" ng-click="loginWithGoogle()" />
+        <input type="button" value="S3 Get All Objects" ng-click="getAllObjects()" />
+        <input type="button" value="S3 Get Object By Key" ng-click="getObjectByKey()" />
+        <input type="button" value="Logout" ng-click="logout()" />
+    </div>
+
+
+    <script src="/node_modules/angular/angular.js"></script>
+    <script src="/node_modules/angular-cookies/angular-cookies.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
