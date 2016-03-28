@@ -4,24 +4,25 @@
     <meta charset="UTF-8">
     <title>ClientS3</title>
 </head>
-<body ng-app="ClientSSS">
+<body ng-app="app">
 
-    <div ng-controller="UserCtrl">
+    <div ng-controller="UserController as vm">
         <span></span>
-        <form ng-submit="submit()">
-            <input ng-model="user.username" type="text" name="user" placeholder="Username" />
-            <input ng-model="user.password" type="password" name="pass" placeholder="Password" />
+        <form ng-submit="vm.submit()">
+            <input ng-model="vm.user.username" type="text" name="user" placeholder="Username" />
+            <input ng-model="vm.user.password" type="password" name="pass" placeholder="Password" />
             <input type="submit" value="Login" />
         </form>
-        <input type="button" value="Login With Google" ng-click="loginWithGoogle()" />
-        <input type="button" value="S3 Get All Objects" ng-click="getAllObjects()" />
-        <input type="button" value="S3 Get Object By Key" ng-click="getObjectByKey()" />
-        <input type="button" value="Logout" ng-click="logout()" />
+        <input type="button" value="Login With Google" ng-click="vm.loginWithGoogle()" />
+        <input type="button" value="S3 Get All Objects" ng-click="vm.getAllObjects()" />
+        <input type="button" value="S3 Get Object By Key" ng-click="vm.getObjectByKey()" />
+        <input type="button" value="Logout" ng-click="vm.logout()" />
     </div>
 
 
     <script src="/node_modules/angular/angular.js"></script>
     <script src="/node_modules/angular-cookies/angular-cookies.js"></script>
-    <script src="app.js"></script>
+    <script src="app/app.module.js"></script>
+    <script src="app/user/user.controller.js"></script>
 </body>
 </html>
