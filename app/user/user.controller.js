@@ -43,7 +43,7 @@
                     console.log(data);
                 })
                 .error(function (data, status, headers, config) {
-                    console.log('Err ' + data);
+                    vm.message = 'Err ' + data;
                 });
         };
 
@@ -54,7 +54,7 @@
                     $window.open(data);
                 })
                 .error(function (data, status, headers, config) {
-                    console.log('Err ' + data);
+                    vm.message = 'Err ' + data;
                 });
         };
 
