@@ -14,10 +14,10 @@ describe('Controller: UserController', function() {
         controller = $controller('UserController', {});
     }));
 
-    describe('login', function() {
+    describe('Login', function() {
         describe('login successful', function() {
             var expectedRequest;
-            beforeEach(function() {
+            beforeEach(function () {
                 controller.user.username = 'userTest';
                 controller.user.password = 'passTest';
 
@@ -27,11 +27,30 @@ describe('Controller: UserController', function() {
                 };
             });
 
-            it('should send username and password to server', function() {
+            it('should send username and password to server', function () {
                 $httpBackend.expectPOST('http://localhost:5000/login', expectedRequest).respond(201, 'Ok');
 
                 controller.submit();
                 $httpBackend.flush();
+            });
+        });
+
+        describe('login with Google', function() {
+            var $window;
+            beforeEach(inject(function(_$window_) {
+                $window = _$window_;
+            }));
+
+            it('should open Google login url', function() {
+                //$httpBackend.expectGET('http://localhost:5000/loginWithGoogle');
+                spyOn($window, 'location').and.callFake(function() {
+                    return true;
+                });
+
+                controller.loginWithGoogle();
+                //$httpBackend.flush();
+
+                expect($window.location.href).toEqual('http://localhost:5000/loginWithGoogle');
             });
         });
 
@@ -64,6 +83,16 @@ describe('Controller: UserController', function() {
         });
     });
 
+    describe('Logout', function() {
+        it('should remove cookie when logout', function() {
+            $cookies.token = 'tokenToRemove';
+
+            controller.logout();
+
+            expect($cookies.token).toBeUndefined();
+        });
+    });
+
     describe('AWS', function() {
         var $window;
         beforeEach(inject(function(_$window_) {
@@ -83,6 +112,30 @@ describe('Controller: UserController', function() {
             $httpBackend.flush();
 
             expect($window.open).toHaveBeenCalledWith(url);
+        });
+
+        it('should receive error response getting object by key', function() {
+            $httpBackend.expectGET('http://localhost:5000/object/Gruntfile.js')
+                .respond(401, 'Err');
+
+            controller.getObjectByKey();
+            $httpBackend.flush();
+        });
+
+        it('should receive success response getting all objects', function() {
+            $httpBackend.expectGET('http://localhost:5000/object')
+                .respond(201, 'Ok');
+
+            controller.getAllObjects();
+            $httpBackend.flush();
+        });
+
+        it('should receive error response getting all objects', function() {
+            $httpBackend.expectGET('http://localhost:5000/object')
+                .respond(401, 'Err');
+
+            controller.getAllObjects();
+            $httpBackend.flush();
         });
     });
 });
